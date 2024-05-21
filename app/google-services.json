@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "528936200111",
-    "project_id": "rental-app-734e6",
-    "storage_bucket": "rental-app-734e6.appspot.com"
+    "project_number": "799221093787",
+    "project_id": "rental-app-1d7e3",
+    "storage_bucket": "rental-app-1d7e3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:528936200111:android:166adcb030a4059321f15a",
+        "mobilesdk_app_id": "1:799221093787:android:f60ac91b006f96ce3fbd3e",
         "android_client_info": {
           "package_name": "com.malkinfo.rentalapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB1LcJWuFjt3OUuhqfIxlL2EWA6afjEkx4"
+          "current_key": "AIzaSyDQEpSAmmZwK6gXFYQQtWNNoUiY2PmYHK4"
         }
       ],
       "services": {
