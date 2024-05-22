@@ -1,7 +1,5 @@
 package com.malkinfo.rentalapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -41,7 +41,8 @@ public class SignupActivity extends AppCompatActivity {
 
 
                 UserClass userClass=new UserClass(name,email,username,password);
-                DatabaseReference firebaseref=Firebase.getFirebase();
+                TreeFactory treeFactory = new TreeFactory();
+                DatabaseReference firebaseref=treeFactory.getFirebaseTree("users");
                 firebaseref.child(username).setValue(userClass);
 
 
@@ -60,7 +61,6 @@ public class SignupActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
     }
