@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         home=findViewById(R.id.homeAct);
         car=findViewById(R.id.carAct);
 //        Intent intent= new Intent(this,SignupActivity.class);
-//        startnotActivity(intent);
+//        startActivity(intent);
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
