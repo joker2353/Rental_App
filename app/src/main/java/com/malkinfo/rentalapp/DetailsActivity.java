@@ -1,5 +1,6 @@
 package com.malkinfo.rentalapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,12 +15,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.UUID;
 
 public class DetailsActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private TextView price, shortDescription, description;
-    String pri, des, shdes, img,selectedHouseType;
+    String pri, des, shdes, img,selectedHouseType,id;
     AutoCompleteTextView autoCompleteTextView;
     Button apply;
 
@@ -28,7 +36,7 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        String[] languages = getResources().getStringArray(R.array.programming_languages);
+        String[] languages = getResources().getStringArray(R.array.RoomType);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.dropdown_item, languages);
 
@@ -44,17 +52,6 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
 
-//        String[] language = getResources().getStringArray(R.array.prog);
-//
-//        ArrayAdapter<String> arrayAdapte = new ArrayAdapter<>(this, R.layout.dropdown_item, language);
-//
-//        AutoCompleteTextView autocompleteT = findViewById(R.id.autoCompleteTextViews);
-//
-//        autocompleteT.setAdapter(arrayAdapter);
-
-        RoomType r=new AcRoom(selectedHouseType);
-        Apartment a=new Apartment(r);
-
 
 
 
@@ -69,6 +66,27 @@ public class DetailsActivity extends AppCompatActivity {
         des = getIntent().getStringExtra("description");
         shdes = getIntent().getStringExtra("shortDescription");
         img = getIntent().getStringExtra("image");
+        id= getIntent().getStringExtra("id");
+
+
+
+
+
+
+//        String[] language = getResources().getStringArray(R.array.prog);
+//
+//        ArrayAdapter<String> arrayAdapte = new ArrayAdapter<>(this, R.layout.dropdown_item, language);
+//
+//        AutoCompleteTextView autocompleteT = findViewById(R.id.autoCompleteTextViews);
+//
+//        autocompleteT.setAdapter(arrayAdapter);
+
+
+
+
+
+
+
        // Toast.makeText(this, pri, Toast.LENGTH_SHORT).show();
 
 
@@ -88,6 +106,20 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetailsActivity.this, Checkout.class);
                 Toast.makeText(DetailsActivity.this, selectedHouseType, Toast.LENGTH_SHORT).show();
+                FeatureFactory  featureFactory = new FeatureFactory();
+                FeatureType f = FeatureFactory.getfeature(selectedHouseType);
+
+                HouseFactory  houseFactory = new HouseFactory();
+                House h = houseFactory.gethouseType(shdes,f);
+
+                String orderdetails=h.getHouseDetails();
+
+                OrderClass o=new OrderClass(id,orderdetails);
+
+                TreeFactory treeFactory=new TreeFactory();
+                DatabaseReference fref=treeFactory.getFirebaseTree("orders");
+                fref.child(UUID.randomUUID().toString()).setValue(o);
+
                 startActivity(intent);
             }
         });

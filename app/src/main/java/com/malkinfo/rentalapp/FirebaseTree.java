@@ -19,6 +19,19 @@ class HomesTree implements FirebaseTree{
     }
 }
 
+class OrdersTree implements FirebaseTree{
+    private FirebaseDatabase database;
+    private  DatabaseReference reference;
+    public OrdersTree() {
+        database=Firebase.getFirebase();
+    }
+    @Override
+    public DatabaseReference getFirebase(){
+        reference = database.getReference("orders");
+        return reference;
+    }
+}
+
 class UsersTree implements FirebaseTree{
     private FirebaseDatabase database;
     private  DatabaseReference reference;
@@ -40,7 +53,11 @@ class TreeFactory{
         }
         else if(treeType.equalsIgnoreCase("homes")){
             firebasetree = new HomesTree();
-        }else{
+        }
+        else if(treeType.equalsIgnoreCase("orders")){
+            firebasetree = new OrdersTree();
+        }
+        else{
             return null;
         }
         return firebasetree.getFirebase();
